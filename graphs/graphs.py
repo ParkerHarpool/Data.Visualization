@@ -8,14 +8,19 @@ dates = ["Jan 1st, 2023", "Jan 2nd, 2023", "Jan 3rd, 2023", "Jan 4th, 2023",
 
 #The graph label font doesnt want to change, so the graph should be viewed
 #in the maximized frame to allow the view of the xLabels.
-def createGraphs(varX, varY, xLabel, yLabel):
-    plt.bar(varX, varY, color=(0.2, 0.4, 0.6, 0.6))
-    plt.title('Bar Graph')
+def createGraph(varX, varY, xLabel, yLabel, type):
+    if(type == "Bar"):
+        plt.bar(varX, varY, color=(0.2, 0.4, 0.6, 0.6))
+    elif(type == "Line"):
+        plt.plot(varX, varY, color=(0.2, 0.4, 0.6, 0.6))
+    
+    plt.title(type+ ' Graph')
     plt.xlabel(xLabel, fontsize=1)
     plt.ylabel(yLabel)
-    plt.show()
+    plt.show()  
+    
 
 if __name__ == "__main__":
-    createGraphs(dates, steps, "Date", "Steps")
+    createGraph(dates, steps, "Date", "Steps", "Line")
 
 
