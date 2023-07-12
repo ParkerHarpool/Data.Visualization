@@ -83,23 +83,23 @@ class DataLoading:
 
         if (subject == '312'):
             print('Reading 1st')
-            sub_312_18 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/main/data-pandas/312-01-18.csv')
+            sub_312_18 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-18.csv')
             print('Modifying 1st')
             sub_312_18 = sub_312_18[sub_312_18['Datetime (UTC)'] >= '2020-01-18T00:00:00Z']
             sub_312_18 = sub_312_18[sub_312_18['Datetime (UTC)'] <= '2020-01-18T23:59:00Z']
 
             print('Reading 2nd')
-            sub_312_19 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/main/data-pandas/312-01-19.csv')
+            sub_312_19 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-19.csv')
             sub_312_19 = sub_312_19[sub_312_19['Datetime (UTC)'] >= '2020-01-19T00:00:00Z']
             sub_312_19 = sub_312_19[sub_312_19['Datetime (UTC)'] <= '2020-01-19T23:59:00Z']
 
             print('Reading 3rd')
-            sub_312_20 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/main/data-pandas/312-01-20.csv')
+            sub_312_20 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-20.csv')
             sub_312_20 = sub_312_20[sub_312_20['Datetime (UTC)'] >= '2020-01-20T00:00:00Z']
             sub_312_20 = sub_312_20[sub_312_20['Datetime (UTC)'] <= '2020-01-20T23:59:00Z']
 
             print('Reading 4th')
-            sub_312_21 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/main/data-pandas/312-01-21.csv')
+            sub_312_21 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-21.csv')
             sub_312_21 = sub_312_21[sub_312_21['Datetime (UTC)'] >= '2020-01-21T00:00:00Z']
             sub_312_21 = sub_312_21[sub_312_21['Datetime (UTC)'] <= '2020-01-21T23:59:00Z']
 
@@ -249,12 +249,12 @@ class Statistics:
     #calculateInt method that allows a dataList and a type to be passed into it
     #def calculateInt(self, dataList, type):
 
-magAvg = Statistics(2,1,1,1,1,1)
-edaAvg = Statistics(1,1,1,1,1,1)
-tempAvg = Statistics(1,1,1,1,1,1)
-movement = Statistics(1,1,1,1,1,1)
-steps = Statistics(1,1,1,1,1,1)
-rest = Statistics(1,1,1,1,1,1)
+magAvg = Statistics(0,0,0,0,0,0)
+edaAvg = Statistics(0,0,0,0,0,0)
+tempAvg = Statistics(0,0,0,0,0,0)
+movement = Statistics(0,0,0,0,0,0)
+steps = Statistics(0,0,0,0,0,0)
+rest = Statistics(0,0,0,0,0,0)
 
 def createStats():
     global magAvg
