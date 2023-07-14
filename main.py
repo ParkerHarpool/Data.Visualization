@@ -337,6 +337,15 @@ def createGraph():
 root = Tk()
 root.geometry("1000x1000")
 
+# Use the 'clam' ttk theme which looks more modern than the default theme
+style = ttk.Style(root)
+style.theme_use('clam')
+
+# Apply styles to specific widget types
+style.configure("TLabel", foreground="black", background="white", padding=10, font=('Helvetica', 11))
+style.configure("TCombobox", padding=5, font=('Helvetica', 11))
+style.configure("TButton", foreground="black", background="#008CBA", padding=10, font=('Helvetica', 11), borderwidth=0)
+
 data_loader = Frame(root)
 data_loader.pack()
 
@@ -350,28 +359,28 @@ data_loader.participant_var = tk.StringVar()
 data_loader.start_date_var = tk.StringVar()
 data_loader.end_date_var = tk.StringVar()
 
-ttk.Label(data_loader, text="Participant:").grid(column=0, row=0, padx=20, pady=10)
-data_loader.participant_combobox = ttk.Combobox(data_loader, textvariable=data_loader.participant_var)
+ttk.Label(data_loader, text="Participant:", style="TLabel").grid(column=0, row=0, padx=20, pady=10)
+data_loader.participant_combobox = ttk.Combobox(data_loader, textvariable=data_loader.participant_var, style="TCombobox")
 data_loader.participant_combobox['values'] = ['310','311','312']
 data_loader.participant_combobox.grid(column=1, row=0, sticky='w')
 
-ttk.Label(data_loader, text="Start Date:").grid(column=0, row=1, padx=20, pady=10)
+ttk.Label(data_loader, text="Start Date:", style="TLabel").grid(column=0, row=1, padx=20, pady=10)
 data_loader.start_date_entry = DateEntry(data_loader, textvariable=data_loader.start_date_var)
 data_loader.start_date_entry.grid(column=1, row=1, sticky='w')
 
-ttk.Label(data_loader, text="Start Time:").grid(column=0, row=2, padx=20, pady=10)
+ttk.Label(data_loader, text="Start Time:", style="TLabel").grid(column=0, row=2, padx=20, pady=10)
 data_loader.start_time_entry = TimeCombobox(data_loader)
 data_loader.start_time_entry.grid(column=1, row=2, sticky='w')
 
-ttk.Label(data_loader, text="End Date:").grid(column=0, row=3, padx=20, pady=10)
+ttk.Label(data_loader, text="End Date:", style="TLabel").grid(column=0, row=3, padx=20, pady=10)
 data_loader.end_date_entry = DateEntry(data_loader, textvariable=data_loader.end_date_var)
 data_loader.end_date_entry.grid(column=1, row=3, sticky='w')
 
-ttk.Label(data_loader, text="End Time:").grid(column=0, row=4, padx=20, pady=10)
+ttk.Label(data_loader, text="End Time:", style="TLabel").grid(column=0, row=4, padx=20, pady=10)
 data_loader.end_time_entry = TimeCombobox(data_loader)
 data_loader.end_time_entry.grid(column=1, row=4, sticky='w')
 
-data_loader.confirm_button = ttk.Button(data_loader, text="Confirm", command=lambda: confirm())
+data_loader.confirm_button = ttk.Button(data_loader, text="Confirm", command=lambda: confirm(), style="TButton")
 data_loader.confirm_button.grid(column=1, row=5, pady=20)
 
 def confirm():
