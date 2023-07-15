@@ -40,17 +40,17 @@ class DataLoading:
             sub_310_18 = sub_310_18[sub_310_18['Datetime (UTC)'] <= '2020-01-18T23:59:00Z']
 
             print('Reading 2nd')
-            sub_310_19 = pd.read_csv("310-01-19.csv")
+            sub_310_19 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/310-01-19.csv')
             sub_310_19 = sub_310_19[sub_310_19['Datetime (UTC)'] >= '2020-01-19T00:00:00Z']
             sub_310_19 = sub_310_19[sub_310_19['Datetime (UTC)'] <= '2020-01-19T23:59:00Z']
 
             print('Reading 3rd')
-            sub_310_20 = pd.read_csv("310-01-20.csv")
+            sub_310_20 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/310-01-20.csv')
             sub_310_20 = sub_310_20[sub_310_20['Datetime (UTC)'] >= '2020-01-20T00:00:00Z']
             sub_310_20 = sub_310_20[sub_310_20['Datetime (UTC)'] <= '2020-01-20T23:59:00Z']
 
             print('Reading 4th')
-            sub_310_21 = pd.read_csv("310-01-21.csv")
+            sub_310_21 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/310-01-21.csv')
             sub_310_21 = sub_310_21[sub_310_21['Datetime (UTC)'] >= '2020-01-21T00:00:00Z']
             sub_310_21 = sub_310_21[sub_310_21['Datetime (UTC)'] <= '2020-01-21T23:59:00Z']
 
@@ -67,11 +67,11 @@ class DataLoading:
             return sub_310
         
         if (subject == '311'):
-            sub_311_18 = pd.read_csv("311-01-18.csv")
+            sub_311_18 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/311-01-18.csv')
             sub_311_18 = sub_311_18[sub_311_18['Datetime (UTC)'] >= '2020-01-18T00:00:00Z']
             sub_311_18 = sub_311_18[sub_311_18['Datetime (UTC)'] <= '2020-01-18T23:59:00Z']
 
-            sub_311_19 = pd.read_csv("311-01-19.csv")
+            sub_311_19 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/311-01-19.csv')
             sub_311_19 = sub_311_19[sub_311_19['Datetime (UTC)'] >= '2020-01-19T00:00:00Z']
             sub_311_19 = sub_311_19[sub_311_19['Datetime (UTC)'] <= '2020-01-19T23:59:00Z']
 
@@ -83,23 +83,23 @@ class DataLoading:
 
         if (subject == '312'):
             print('Reading 1st')
-            sub_312_18 = pd.read_csv("312-01-18.csv")
+            sub_312_18 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-18.csv')
             print('Modifying 1st')
             sub_312_18 = sub_312_18[sub_312_18['Datetime (UTC)'] >= '2020-01-18T00:00:00Z']
             sub_312_18 = sub_312_18[sub_312_18['Datetime (UTC)'] <= '2020-01-18T23:59:00Z']
 
             print('Reading 2nd')
-            sub_312_19 = pd.read_csv("312-01-19.csv")
+            sub_312_19 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-19.csv')
             sub_312_19 = sub_312_19[sub_312_19['Datetime (UTC)'] >= '2020-01-19T00:00:00Z']
             sub_312_19 = sub_312_19[sub_312_19['Datetime (UTC)'] <= '2020-01-19T23:59:00Z']
 
             print('Reading 3rd')
-            sub_312_20 = pd.read_csv("312-01-20.csv")
+            sub_312_20 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-20.csv')
             sub_312_20 = sub_312_20[sub_312_20['Datetime (UTC)'] >= '2020-01-20T00:00:00Z']
             sub_312_20 = sub_312_20[sub_312_20['Datetime (UTC)'] <= '2020-01-20T23:59:00Z']
 
             print('Reading 4th')
-            sub_312_21 = pd.read_csv("312-01-21.csv")
+            sub_312_21 = pd.read_csv(r'https://raw.githubusercontent.com/ParkerHarpool/Data.Visualization/test-branch/csv-files/312-01-21.csv')
             sub_312_21 = sub_312_21[sub_312_21['Datetime (UTC)'] >= '2020-01-21T00:00:00Z']
             sub_312_21 = sub_312_21[sub_312_21['Datetime (UTC)'] <= '2020-01-21T23:59:00Z']
 
