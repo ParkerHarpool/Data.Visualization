@@ -194,7 +194,8 @@ class DataLoading:
         model.localDates = []
         for date in model.dates:
              utcDate = datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
-             estDate = utcDate - timedelta(hours=5, minutes=0)
+             timeDiff = dfMerge['Timezone (minutes)'].loc[dfMerge.index[0]]
+             estDate = utcDate - timedelta(hours=timeDiff/-60, minutes=0)
              finalDate = estDate.strftime("%Y-%m-%dT%H:%M:%SZ")
              model.localDates.append(finalDate)
         print(model.localDates)
@@ -543,7 +544,7 @@ checkboxes.checkbox_labels = ["Acc magnitude avg", "Eda avg", "Temp avg", "Movem
 
 ttk.Label(graph_choice, text="Choose Graph:", style="TLabel").grid(column=0, row=0, padx=20, pady=10)
 graph_choice.checkbox_vars = [tk.StringVar() for _ in range(7)]
-graph_choice.checkbox_labels = ["MagAvg Bar Chart?", "EdaAvg Bar Chart?", "Temp Bar Chart?", "Movement Bar Chart?", "Steps Bar Chart?", "Rest Bar Chart?", "OnWrist Chart?"]
+graph_choice.checkbox_labels = ["MagAvg Bar Chart?", "EdaAvg Bar Chart?", "Temp Bar Chart?", "Movement Bar Chart?", "Steps Bar Chart?", "Rest Bar Chart?", "OnWrist Bar Chart?"]
 
 ttk.Label(data_loader, text="Participant:", style="TLabel").grid(column=0, row=0, padx=20, pady=10)
 data_loader.participant_combobox = ttk.Combobox(data_loader, textvariable=data_loader.participant_var, style="TCombobox")
