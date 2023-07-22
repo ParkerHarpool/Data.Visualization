@@ -194,7 +194,8 @@ class DataLoading:
         model.localDates = []
         for date in model.dates:
              utcDate = datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
-             estDate = utcDate - timedelta(hours=5, minutes=0)
+             timeDiff = dfMerge['Timezone (minutes)'].loc[dfMerge.index[0]]
+             estDate = utcDate - timedelta(hours=timeDiff/-60, minutes=0)
              finalDate = estDate.strftime("%Y-%m-%dT%H:%M:%SZ")
              model.localDates.append(finalDate)
         print(model.localDates)
@@ -295,214 +296,216 @@ def createStats():
 
 #The graph label font doesnt want to change, so the graph should be viewed
 #in the maximized frame to allow the view of the xLabels.
-def createGraph():
-        global test_model
-        dates: list
-        i: int = 1
-        localTime = checkboxes.checkbox_vars[7].get()
 
-        if (localTime == '1'):
-             dates = test_model.localDates
-        else:
-             dates = test_model.dates
+class Graphs:
+    def createGraph():
+            global test_model
+            dates: list
+            i: int = 1
+            localTime = checkboxes.checkbox_vars[7].get()
 
-        if (len(test_model.magAvgList) > 0):
-                plt.figure(i)
-                i += 1
+            if (localTime == '1'):
+                dates = test_model.localDates
+            else:
+                dates = test_model.dates
 
-                if (graph_choice.checkbox_vars[0].get() == '1'):
-                    plt.bar(dates, test_model.magAvgList, color=(0.2, 0.4, 0.6, 0.6))
-                else:
-                    plt.plot(dates, test_model.magAvgList, color=(0.2, 0.4, 0.6, 0.6))
+            if (len(test_model.magAvgList) > 0):
+                    plt.figure(i)
+                    i += 1
 
-                ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
-                ticksValues = [dates[ticks[0]], dates[ticks[1]],
-                        dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
-                        dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
-                        dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
-                        dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
-                        dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
-                labels: list = []
-                for x in ticksValues:
-                    date_format = "%Y-%m-%dT%H:%M:%SZ"
+                    if (graph_choice.checkbox_vars[0].get() == '1'):
+                        plt.bar(dates, test_model.magAvgList, color=(0.2, 0.4, 0.6, 0.6))
+                    else:
+                        plt.plot(dates, test_model.magAvgList, color=(0.2, 0.4, 0.6, 0.6))
 
-                    y = datetime.strptime(x, date_format)
-                    z = y.strftime("Jan %d, %H:%M")
-                    labels.append(z)
+                    ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
+                    ticksValues = [dates[ticks[0]], dates[ticks[1]],
+                            dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
+                            dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
+                            dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
+                            dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
+                            dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
+                    labels: list = []
+                    for x in ticksValues:
+                        date_format = "%Y-%m-%dT%H:%M:%SZ"
+
+                        y = datetime.strptime(x, date_format)
+                        z = y.strftime("Jan %d, %H:%M")
+                        labels.append(z)
+                        
+                    plt.xticks(ticks, labels, rotation=60, ha='right')
+                    plt.tight_layout()
+                    plt.title('Mag Avg')
+
+            if (len(test_model.edaAvgList) > 0):
+                    plt.figure(i)
+                    i += 1
+
+                    if (graph_choice.checkbox_vars[1].get() == '1'):
+                        plt.bar(dates, test_model.edaAvgList, color=(0.2, 0.4, 0.6, 0.6))
+                    else:
+                        plt.plot(dates, test_model.edaAvgList, color=(0.2, 0.4, 0.6, 0.6))
+
+                    ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
+                    ticksValues = [dates[ticks[0]], dates[ticks[1]],
+                            dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
+                            dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
+                            dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
+                            dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
+                            dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
+                    labels: list = []
+                    for x in ticksValues:
+                        date_format = "%Y-%m-%dT%H:%M:%SZ"
+
+                        y = datetime.strptime(x, date_format)
+                        z = y.strftime("Jan %d, %H:%M")
+                        labels.append(z)
+
+                    plt.xticks(ticks, labels, rotation=60, ha='right')
+                    plt.tight_layout()
+                    plt.title('EDA Avg')
+
+            if (len(test_model.tempAvgList) > 0):
+                    plt.figure(i)
+                    i += 1
                     
-                plt.xticks(ticks, labels, rotation=60, ha='right')
-                plt.tight_layout()
-                plt.title('Mag Avg')
+                    if (graph_choice.checkbox_vars[2].get() == '1'):
+                        plt.bar(dates, test_model.tempAvgList, color=(0.2, 0.4, 0.6, 0.6))
+                    else:
+                        plt.plot(dates, test_model.tempAvgList, color=(0.2, 0.4, 0.6, 0.6))
 
-        if (len(test_model.edaAvgList) > 0):
-                plt.figure(i)
-                i += 1
+                    ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
+                    ticksValues = [dates[ticks[0]], dates[ticks[1]],
+                            dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
+                            dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
+                            dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
+                            dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
+                            dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
+                    labels: list = []
+                    for x in ticksValues:
+                        date_format = "%Y-%m-%dT%H:%M:%SZ"
 
-                if (graph_choice.checkbox_vars[1].get() == '1'):
-                    plt.bar(dates, test_model.edaAvgList, color=(0.2, 0.4, 0.6, 0.6))
-                else:
-                    plt.plot(dates, test_model.edaAvgList, color=(0.2, 0.4, 0.6, 0.6))
+                        y = datetime.strptime(x, date_format)
+                        z = y.strftime("Jan %d, %H:%M")
+                        labels.append(z)
 
-                ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
-                ticksValues = [dates[ticks[0]], dates[ticks[1]],
-                        dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
-                        dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
-                        dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
-                        dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
-                        dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
-                labels: list = []
-                for x in ticksValues:
-                    date_format = "%Y-%m-%dT%H:%M:%SZ"
+                    plt.xticks(ticks, labels, rotation=60, ha='right')
+                    plt.tight_layout()
+                    plt.title('Temp Avg')
 
-                    y = datetime.strptime(x, date_format)
-                    z = y.strftime("Jan %d, %H:%M")
-                    labels.append(z)
+            if (len(test_model.movementList) > 0):
+                    plt.figure(i)
+                    i += 1
+                    
+                    if (graph_choice.checkbox_vars[3].get() == '1'):
+                        plt.bar(dates, test_model.movementList, color=(0.2, 0.4, 0.6, 0.6))
+                    else:
+                        plt.plot(dates, test_model.movementList, color=(0.2, 0.4, 0.6, 0.6))
 
-                plt.xticks(ticks, labels, rotation=60, ha='right')
-                plt.tight_layout()
-                plt.title('EDA Avg')
+                    ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
+                    ticksValues = [dates[ticks[0]], dates[ticks[1]],
+                            dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
+                            dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
+                            dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
+                            dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
+                            dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
+                    labels: list = []
+                    for x in ticksValues:
+                        date_format = "%Y-%m-%dT%H:%M:%SZ"
 
-        if (len(test_model.tempAvgList) > 0):
-                plt.figure(i)
-                i += 1
-                
-                if (graph_choice.checkbox_vars[2].get() == '1'):
-                    plt.bar(dates, test_model.tempAvgList, color=(0.2, 0.4, 0.6, 0.6))
-                else:
-                    plt.plot(dates, test_model.tempAvgList, color=(0.2, 0.4, 0.6, 0.6))
+                        y = datetime.strptime(x, date_format)
+                        z = y.strftime("Jan %d, %H:%M")
+                        labels.append(z)
 
-                ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
-                ticksValues = [dates[ticks[0]], dates[ticks[1]],
-                        dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
-                        dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
-                        dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
-                        dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
-                        dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
-                labels: list = []
-                for x in ticksValues:
-                    date_format = "%Y-%m-%dT%H:%M:%SZ"
+                    plt.xticks(ticks, labels, rotation=60, ha='right')
+                    plt.tight_layout()
+                    plt.title('Movement Intensity')
 
-                    y = datetime.strptime(x, date_format)
-                    z = y.strftime("Jan %d, %H:%M")
-                    labels.append(z)
+            if (len(test_model.stepsList) > 0):
+                    plt.figure(i)
+                    i += 1
+                    
+                    if (graph_choice.checkbox_vars[4].get() == '1'):
+                        plt.bar(dates, test_model.stepsList, color=(0.2, 0.4, 0.6, 0.6))
+                    else:
+                        plt.plot(dates, test_model.stepsList, color=(0.2, 0.4, 0.6, 0.6))
 
-                plt.xticks(ticks, labels, rotation=60, ha='right')
-                plt.tight_layout()
-                plt.title('Temp Avg')
+                    ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
+                    ticksValues = [dates[ticks[0]], dates[ticks[1]],
+                            dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
+                            dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
+                            dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
+                            dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
+                            dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
+                    labels: list = []
+                    for x in ticksValues:
+                        date_format = "%Y-%m-%dT%H:%M:%SZ"
 
-        if (len(test_model.movementList) > 0):
-                plt.figure(i)
-                i += 1
-                
-                if (graph_choice.checkbox_vars[3].get() == '1'):
-                    plt.bar(dates, test_model.movementList, color=(0.2, 0.4, 0.6, 0.6))
-                else:
-                    plt.plot(dates, test_model.movementList, color=(0.2, 0.4, 0.6, 0.6))
+                        y = datetime.strptime(x, date_format)
+                        z = y.strftime("Jan %d, %H:%M")
+                        labels.append(z)
 
-                ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
-                ticksValues = [dates[ticks[0]], dates[ticks[1]],
-                        dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
-                        dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
-                        dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
-                        dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
-                        dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
-                labels: list = []
-                for x in ticksValues:
-                    date_format = "%Y-%m-%dT%H:%M:%SZ"
+                    plt.xticks(ticks, labels, rotation=60, ha='right')
+                    plt.tight_layout()
+                    plt.title('Steps Count')
 
-                    y = datetime.strptime(x, date_format)
-                    z = y.strftime("Jan %d, %H:%M")
-                    labels.append(z)
+            if (len(test_model.restList) > 0):
+                    plt.figure(i)
+                    i += 1
+                    
+                    if (graph_choice.checkbox_vars[5].get() == '1'):
+                        plt.bar(dates, test_model.restList, color=(0.2, 0.4, 0.6, 0.6))
+                    else:
+                        plt.plot(dates, test_model.restList, color=(0.2, 0.4, 0.6, 0.6))
 
-                plt.xticks(ticks, labels, rotation=60, ha='right')
-                plt.tight_layout()
-                plt.title('Movement Intensity')
+                    ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
+                    ticksValues = [dates[ticks[0]], dates[ticks[1]],
+                            dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
+                            dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
+                            dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
+                            dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
+                            dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
+                    labels: list = []
+                    for x in ticksValues:
+                        date_format = "%Y-%m-%dT%H:%M:%SZ"
 
-        if (len(test_model.stepsList) > 0):
-                plt.figure(i)
-                i += 1
-                
-                if (graph_choice.checkbox_vars[4].get() == '1'):
-                    plt.bar(dates, test_model.stepsList, color=(0.2, 0.4, 0.6, 0.6))
-                else:
-                    plt.plot(dates, test_model.stepsList, color=(0.2, 0.4, 0.6, 0.6))
+                        y = datetime.strptime(x, date_format)
+                        z = y.strftime("Jan %d, %H:%M")
+                        labels.append(z)
 
-                ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
-                ticksValues = [dates[ticks[0]], dates[ticks[1]],
-                        dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
-                        dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
-                        dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
-                        dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
-                        dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
-                labels: list = []
-                for x in ticksValues:
-                    date_format = "%Y-%m-%dT%H:%M:%SZ"
+                    plt.xticks(ticks, labels, rotation=60, ha='right')
+                    plt.tight_layout()
+                    plt.title('Rest')
 
-                    y = datetime.strptime(x, date_format)
-                    z = y.strftime("Jan %d, %H:%M")
-                    labels.append(z)
+            if (len(test_model.wristList) > 0):
+                    plt.figure(i)
+                    i += 1
+                    
+                    if (graph_choice.checkbox_vars[6].get() == '1'):
+                        plt.bar(dates, test_model.wristList, color=(0.2, 0.4, 0.6, 0.6))
+                    else:
+                        plt.plot(dates, test_model.wristList, color=(0.2, 0.4, 0.6, 0.6))
 
-                plt.xticks(ticks, labels, rotation=60, ha='right')
-                plt.tight_layout()
-                plt.title('Steps Count')
+                    ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
+                    ticksValues = [dates[ticks[0]], dates[ticks[1]],
+                            dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
+                            dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
+                            dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
+                            dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
+                            dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
+                    labels: list = []
+                    for x in ticksValues:
+                        date_format = "%Y-%m-%dT%H:%M:%SZ"
 
-        if (len(test_model.restList) > 0):
-                plt.figure(i)
-                i += 1
-                
-                if (graph_choice.checkbox_vars[5].get() == '1'):
-                    plt.bar(dates, test_model.restList, color=(0.2, 0.4, 0.6, 0.6))
-                else:
-                    plt.plot(dates, test_model.restList, color=(0.2, 0.4, 0.6, 0.6))
+                        y = datetime.strptime(x, date_format)
+                        z = y.strftime("Jan %d, %H:%M")
+                        labels.append(z)
 
-                ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
-                ticksValues = [dates[ticks[0]], dates[ticks[1]],
-                        dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
-                        dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
-                        dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
-                        dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
-                        dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
-                labels: list = []
-                for x in ticksValues:
-                    date_format = "%Y-%m-%dT%H:%M:%SZ"
-
-                    y = datetime.strptime(x, date_format)
-                    z = y.strftime("Jan %d, %H:%M")
-                    labels.append(z)
-
-                plt.xticks(ticks, labels, rotation=60, ha='right')
-                plt.tight_layout()
-                plt.title('Rest')
-
-        if (len(test_model.wristList) > 0):
-                plt.figure(i)
-                i += 1
-                
-                if (graph_choice.checkbox_vars[6].get() == '1'):
-                    plt.bar(dates, test_model.wristList, color=(0.2, 0.4, 0.6, 0.6))
-                else:
-                    plt.plot(dates, test_model.wristList, color=(0.2, 0.4, 0.6, 0.6))
-
-                ticks = np.arange(0, len(dates)-1, math.floor(len(dates)*.05))
-                ticksValues = [dates[ticks[0]], dates[ticks[1]],
-                        dates[ticks[2]], dates[ticks[3]], dates[ticks[4]], dates[ticks[5]],
-                        dates[ticks[6]], dates[ticks[7]], dates[ticks[8]], dates[ticks[9]],
-                        dates[ticks[10]], dates[ticks[11]], dates[ticks[12]], dates[ticks[13]],
-                        dates[ticks[14]], dates[ticks[15]], dates[ticks[16]], dates[ticks[17]],
-                        dates[ticks[18]], dates[ticks[19]], dates[ticks[20]]]
-                labels: list = []
-                for x in ticksValues:
-                    date_format = "%Y-%m-%dT%H:%M:%SZ"
-
-                    y = datetime.strptime(x, date_format)
-                    z = y.strftime("Jan %d, %H:%M")
-                    labels.append(z)
-
-                plt.xticks(ticks, labels, rotation=60, ha='right')
-                plt.tight_layout()
-                plt.title('On Wrist')
-        
-        plt.show()
+                    plt.xticks(ticks, labels, rotation=60, ha='right')
+                    plt.tight_layout()
+                    plt.title('On Wrist')
+            
+            plt.show()
 
 root = Tk()
 root.geometry("1060x1000")
@@ -543,7 +546,7 @@ checkboxes.checkbox_labels = ["Acc magnitude avg", "Eda avg", "Temp avg", "Movem
 
 ttk.Label(graph_choice, text="Choose Graph:", style="TLabel").grid(column=0, row=0, padx=20, pady=10)
 graph_choice.checkbox_vars = [tk.StringVar() for _ in range(7)]
-graph_choice.checkbox_labels = ["MagAvg Bar Chart?", "EdaAvg Bar Chart?", "Temp Bar Chart?", "Movement Bar Chart?", "Steps Bar Chart?", "Rest Bar Chart?", "OnWrist Chart?"]
+graph_choice.checkbox_labels = ["MagAvg Bar Chart?", "EdaAvg Bar Chart?", "Temp Bar Chart?", "Movement Bar Chart?", "Steps Bar Chart?", "Rest Bar Chart?", "OnWrist Bar Chart?"]
 
 ttk.Label(data_loader, text="Participant:", style="TLabel").grid(column=0, row=0, padx=20, pady=10)
 data_loader.participant_combobox = ttk.Combobox(data_loader, textvariable=data_loader.participant_var, style="TCombobox")
@@ -672,7 +675,7 @@ def updateStats():
 
 chart.grid(column=0, row=1, columnspan=3)
 
-b = ttk.Button(data_loader, text="Create Graphs", style="TButton", command=lambda: createGraph()).grid(column=2, row=5)
+b = ttk.Button(data_loader, text="Create Graphs", style="TButton", command=lambda: Graphs.createGraph()).grid(column=2, row=5)
 
 root.after(1000, updateStats)
 root.mainloop()
